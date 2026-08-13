@@ -71,4 +71,46 @@ ActiveRecord::Schema.define(version: 2020_06_27_175600) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
 
+  create_table "artist_membership_applications", force: :cascade do |t|
+    t.string "applicant_email", null: false
+    t.string "display_name", null: false
+    t.string "status", default: "draft", null: false
+    t.boolean "education_verified", default: false, null: false
+    t.text "statement"
+    t.text "moderator_summary"
+    t.datetime "submitted_at"
+    t.datetime "decided_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["applicant_email"], name: "index_artist_membership_applications_on_applicant_email"
+    t.index ["status"], name: "index_artist_membership_applications_on_status"
+  end
+
+  create_table "artist_portfolio_works", force: :cascade do |t|
+    t.bigint "artist_membership_application_id", null: false
+    t.string "category", null: false
+    t.string "title", null: false
+    t.string "technique"
+    t.integer "year_created"
+    t.text "author_note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artist_membership_application_id", "category"], name: "index_artist_portfolio_works_on_application_and_category"
+  end
+
+  create_table "artist_reviews", force: :cascade do |t|
+    t.bigint "artist_membership_application_id", null: false
+    t.string "reviewer_name", null: false
+    t.string "category", null: false
+    t.integer "score", null: false
+    t.text "comment", null: false
+    t.boolean "visible_to_applicant", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artist_membership_application_id", "category"], name: "index_artist_reviews_on_application_and_category"
+  end
+
+  add_foreign_key "artist_portfolio_works", "artist_membership_applications"
+  add_foreign_key "artist_reviews", "artist_membership_applications"
+
 end

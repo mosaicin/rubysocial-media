@@ -9,6 +9,10 @@ Rails.application.routes.draw do
 
   get 'posts', to: 'posts#index'
 
+  get 'club', to: 'artist_membership_applications#new', as: :club
+  get 'club/apply', to: 'artist_membership_applications#new', as: :club_application
+  post 'club/apply', to: 'artist_membership_applications#create'
+
   post 'comments/create/:post_id', to: 'comments#create', constraints: { post_id: /\d+/ }
   post 'comments/create/:post_id/replies/:parent_id', to: 'comments#create', constraints: { post_id: /\d+/, parent_id: /\d+/ }
 
