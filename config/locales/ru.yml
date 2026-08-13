@@ -1,0 +1,20 @@
+# activerecord.errors.models.user.attributes.name.blank
+ru:
+  activerecord:
+    errors:
+      models:
+        post:
+          attributes:
+            topic:
+              required: "Темы не существует"
+            title:
+              blank: "Заголовок не может быть пустым"
+              too_long: "Заголовок слишком длинный"
+            body:
+              blank: "Текст не может быть пустым"  
+        comment:
+          attributes:
+            body:
+              required: "Комментарий не может быть пустым"
+              too_short: "Ваш комментарий какой-то несодержательный"
+              too_long: "Слишком много букв, которые никто не будет читать"

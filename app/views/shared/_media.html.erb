@@ -1,0 +1,20 @@
+<% attachments.each do |attachment| %>
+  <div class="media-attachment mb-3">
+    <% if attachment.content_type.start_with?("image/") %>
+      <%= image_tag attachment, class: "img-fluid rounded", alt: attachment.filename.to_s %>
+    <% elsif attachment.content_type.start_with?("video/") %>
+      <video class="w-100 rounded" controls preload="metadata">
+        <source src="<%= url_for(attachment) %>" type="<%= attachment.content_type %>">
+        Ваш браузер не поддерживает видео.
+      </video>
+    <% elsif attachment.content_type.start_with?("audio/") %>
+      <div class="audio-attachment border rounded p-3">
+        <strong><%= attachment.filename.to_s %></strong>
+        <audio class="w-100 mt-2" controls preload="metadata">
+          <source src="<%= url_for(attachment) %>" type="<%= attachment.content_type %>">
+          Ваш браузер не поддерживает аудио.
+        </audio>
+      </div>
+    <% end %>
+  </div>
+<% end %>

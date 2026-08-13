@@ -1,0 +1,26 @@
+      <!-- Post Content Column -->
+      <div class="col-lg-8">
+
+        <!-- Title -->
+        <h1 class="mt-4"><%= @post.title %></h1>
+
+        <!-- Author -->
+        <p class="lead">
+        </p>
+
+        <hr>
+
+        <!-- Date/Time -->
+        <p><%= @post.created_at %></p>
+
+        <hr>
+
+        <!-- Post Content -->
+        <div class="post-body"><%= simple_format(@post.body) %></div>
+        <%= render "shared/media", attachments: @post.media %>
+        <hr>
+
+        <!-- Comments Form -->
+        <%= react_component("CommentsApp", { comments: @comments.as_json, replies: @replies.transform_values(&:as_json), csrf_token: form_authenticity_token, post_id: @post.id }) %>
+       
+      </div>
