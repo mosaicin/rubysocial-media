@@ -1,0 +1,15 @@
+<div class="container py-5">
+  <p class="text-uppercase text-muted small">Закрытая мастерская</p>
+  <h1>Клуб художников</h1>
+  <p class="lead">Здесь участники обсуждают работу, рисунок, живопись и композицию без спонсорского или рекламного доступа.</p>
+
+  <% @posts.each do |post| %>
+    <article class="card mb-4">
+      <div class="card-body">
+        <h2 class="h4"><%= link_to post.title, "/posts/#{post.id}" %></h2>
+        <div class="post-body"><%= simple_format(post.body) %></div>
+        <%= render "shared/media", attachments: post.media %>
+      </div>
+    </article>
+  <% end %>
+</div>
